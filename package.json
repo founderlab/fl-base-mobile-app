@@ -1,0 +1,32 @@
+{
+  "name": "FounderLab_replaceme",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "parallelshell 'npm start' 'open ./ios/FounderLab_replaceme.xcodeproj'",
+    "android": "parallelshell 'npm start' 'android avd'",
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "fl-auth-redux": "git+https://founderlab-dummy:5901023845@bitbucket.org/founderlab/fl-auth-redux",
+    "immutable": "^3.7.5",
+    "lodash": "^3.10.1",
+    "redux": "^3.0.0",
+    "react-native": "^0.17.0",
+    "react-redux": "^3.1.0",
+    "redux-form": "^4.1.0",
+    "redux-thunk": "^1.0.0",
+    "superagent": "0.18.0",
+    "warning": "^2.1.0",
+    "reselect": "^2.0.1",
+    "redux-request-middleware": "^0.4.0",
+    "superagent-request-modifier": "^0.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.1.3",
+    "eslint": "^1.5.1",
+    "eslint-config-founderlab": "^0.1.0",
+    "eslint-plugin-react": "^3.4.2",
+    "parallelshell": "^2.0.0"
+  }
+}
