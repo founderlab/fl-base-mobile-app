@@ -1,5 +1,5 @@
 import React, {
-  View,
+
 } from 'react-native'
 import LoginForm from './LoginForm'
 

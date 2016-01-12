@@ -34,7 +34,7 @@ const NavigationBarRouteMapper = {
         onPress={() => navigator.pop()}
         style={navbar_styles.navBarLeftButton}>
         <Text style={[navbar_styles.navBarText, navbar_styles.navBarButtonText]}>
-          {previousRoute.title || 'back'}
+          {previousRoute.name || 'back'}
         </Text>
       </TouchableOpacity>
     )
@@ -55,7 +55,7 @@ const NavigationBarRouteMapper = {
   Title: (route, navigator, index) => {
     return (
       <Text style={[navbar_styles.navBarText, navbar_styles.navBarTitleText]}>
-        {route.title} [{index}]
+        {route.name} [{index}]
       </Text>
     )
   },
@@ -74,12 +74,10 @@ function RouteMapper(route, nav) {
 
 export default class Nav extends React.Component {
   render() {
-    console.log('router', router)
-    console.log('router.landing', router.get('landing'))
     return (
       <Navigator
         style={styles.container}
-        initialRoute={router.get('landing')}
+        initialRoute={router.get('home')}
         renderScene={RouteMapper}
 
         navigationBar={

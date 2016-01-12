@@ -41,4 +41,4 @@ class FLNativeApp extends React.Component {
   }
 }
 
-AppRegistry.registerComponent('FounderLab_replaceme', () => FLNativeApp)
+AppRegistry.registerComponent('FireFront', () => FLNativeApp)

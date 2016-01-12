@@ -13,10 +13,10 @@ class LoginContainer extends React.Component {
   // }
 
   onLogin = data => {
-    console.log('dispatching', auth_actions.login, data)
+    console.log('dispatching', login, data)
     this.props.login(`${this.props.config.get('url')}/login`, data.email, data.password, (err) => {
       console.log('req done', err)
-      if (!err) this.props.nav.push(router.get('landing'))
+      if (!err) this.props.nav.push(router.get('menu'))
     })
   };
 

@@ -1,28 +1,15 @@
 import React, {
-  StyleSheet,
   Text,
   View,
   TextInput,
 } from 'react-native'
 import {reduxForm} from 'redux-form/native'
 
+import layout_styles from '../../ui/styles/layout'
+import typography_styles from '../../ui/styles/typography'
 import form_styles from '../../ui/styles/form'
 import button_styles from '../../ui/styles/button'
 import Button from '../../ui/components/Button'
-
-const styles = StyleSheet.create({
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCaF',
-  },
-})
 
 class LoginForm extends React.Component {
 
@@ -32,9 +19,9 @@ class LoginForm extends React.Component {
     const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (errors.login || '').toString()
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          ios login!
+      <View style={layout_styles.container}>
+        <Text style={typography_styles.h1}>
+          login
         </Text>
         <TextInput
           style={form_styles.text_input}

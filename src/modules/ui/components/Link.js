@@ -3,12 +3,26 @@ import React, {
   TouchableOpacity,
 } from 'react-native'
 import isArray from 'lodash/lang/isArray'
+import router from '../../../routing'
 
-export default class Button extends React.Component {
+export default class Link extends React.Component {
+
+  onPress = (event) => {
+    if (this.props.disabled) {
+      event.preventDefault()
+      return
+    }
+
+    if (this.props.children.props && this.props.children.props.onPress) {
+      this.props.children.props.onPress(event)
+    }
+
+    this.props.nav.push(router.get(this.props.to))
+  };
 
   render() {
     const touchable_props = {
-      onPress: this.props.onPress,
+      onPress: this.props.onPress || this.onPress,
       activeOpacity: 0.2,
     }
     const style = [this.props.style]
@@ -31,9 +45,11 @@ export default class Button extends React.Component {
 
 }
 
-Button.propTypes = {
+Link.propTypes = {
+  nav: React.PropTypes.object.isRequired,
   children: React.PropTypes.node.isRequired,
-  onPress: React.PropTypes.func.isRequired,
+  to: React.PropTypes.string.isRequired,
+  onPress: React.PropTypes.func,
   disabled: React.PropTypes.bool,
   style: Text.propTypes.style,
   disabled_style: Text.propTypes.style,

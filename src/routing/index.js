@@ -1,13 +1,13 @@
 import Router from './Router'
-import Landing from '../modules/landing/containers/Landing'
+import Home from '../modules/home/containers/Home'
 import Login from '../modules/login/containers/Login'
 
 export default new Router({
   routes: [
     {
-      name: 'landing',
+      name: 'home',
       path: '/',
-      component: Landing,
+      component: Home,
     },
     {
       name: 'login',
