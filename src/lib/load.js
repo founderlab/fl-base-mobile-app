@@ -1,11 +1,11 @@
 import Platform from 'Platform'
 
-export default function load(source_path) {
+export default function load(sourcePath) {
   const os = Platform.OS.toLowerCase()
-  const final_path = `./${source_path}.${os}.js`
-  console.log('loading', source_path, 'on', os, 'from', final_path)
+  const finalPath = `./${sourcePath}.${os}.js`
+  console.log('loading', sourcePath, 'on', os, 'from', finalPath)
   console.log('req1', require('./routes/app.ios'))
   console.log('req2', require('./routes/app.ios.js'))
-  console.log('req3', require(final_path))
-  return require(final_path)
+  console.log('req3', require(finalPath))
+  return require(finalPath)
 }

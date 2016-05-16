@@ -7,23 +7,23 @@ import isArray from 'lodash/lang/isArray'
 export default class Button extends React.Component {
 
   render() {
-    const touchable_props = {
+    const touchableProps = {
       onPress: this.props.onPress,
       activeOpacity: 0.2,
     }
     const style = [this.props.style]
 
     if (this.props.disabled) {
-      touchable_props.onPress = null
-      touchable_props.activeOpacity = 1
-      if (this.props.disabled_style) style.push(this.props.disabled_style)
+      touchableProps.onPress = null
+      touchableProps.activeOpacity = 1
+      if (this.props.disabledStyle) style.push(this.props.disabledStyle)
     }
 
     let children = this.props.children
     children = (React.isValidElement(children) || isArray(children)) ? this.props.children : (<Text style={style}>{children}</Text>)
 
     return (
-      <TouchableOpacity {...touchable_props}>
+      <TouchableOpacity {...touchableProps}>
         {children}
       </TouchableOpacity>
     )
@@ -36,5 +36,5 @@ Button.propTypes = {
   onPress: React.PropTypes.func.isRequired,
   disabled: React.PropTypes.bool,
   style: Text.propTypes.style,
-  disabled_style: Text.propTypes.style,
+  disabledStyle: Text.propTypes.style,
 }

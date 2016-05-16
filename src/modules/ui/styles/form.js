@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native'
 
 export default StyleSheet.create({
-  text_input: {
+  textInput: {
     height: 40,
     borderColor: '#bbb',
     borderWidth: 1,

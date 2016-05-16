@@ -5,10 +5,10 @@ import React, {
 } from 'react-native'
 import {reduxForm} from 'redux-form/native'
 
-import layout_styles from '../../ui/styles/layout'
-import typography_styles from '../../ui/styles/typography'
-import form_styles from '../../ui/styles/form'
-import button_styles from '../../ui/styles/button'
+import layoutStyles from '../../ui/styles/layout'
+import typographyStyles from '../../ui/styles/typography'
+import formStyles from '../../ui/styles/form'
+import buttonStyles from '../../ui/styles/button'
 import Button from '../../ui/components/Button'
 
 class LoginForm extends React.Component {
@@ -16,29 +16,29 @@ class LoginForm extends React.Component {
   render() {
     const {fields: {email, password}, handleSubmit, auth} = this.props
     const errors = auth.get('errors') || {}
-    const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (errors.login || '').toString()
+    const errorMsg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (errors.login || '').toString()
 
     return (
-      <View style={layout_styles.container}>
-        <Text style={typography_styles.h1}>
+      <View style={layoutStyles.container}>
+        <Text style={typographyStyles.h1}>
           login
         </Text>
         <TextInput
-          style={form_styles.text_input}
+          style={formStyles.textInput}
           placeholder="email"
           // onChangeText={(email) => this.setState({email})}
           // value={this.state.email}
           {...email}
         />
         <TextInput
-          style={form_styles.text_input}
+          style={formStyles.textInput}
           placeholder="password"
           // onChangeText={(password) => this.setState({password})}
           // value={this.state.password}
           {...password}
         />
-        {errors.login && <Text>{error_msg}</Text>}
-        <Button onPress={handleSubmit} style={button_styles.button}>
+        {errors.login && <Text>{errorMsg}</Text>}
+        <Button onPress={handleSubmit} style={buttonStyles.button}>
           Login
         </Button>
       </View>
@@ -50,8 +50,8 @@ LoginForm.propTypes = {
   auth: React.PropTypes.object,
   fields: React.PropTypes.object.isRequired,
 
-  form_styles: React.PropTypes.object,
-  button_styles: React.PropTypes.object,
+  formStyles: React.PropTypes.object,
+  buttonStyles: React.PropTypes.object,
 
   handleSubmit: React.PropTypes.func.isRequired,
 }

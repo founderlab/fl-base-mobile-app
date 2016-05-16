@@ -12,7 +12,7 @@ import router from './index'
 // import configureBack from './lib/back'
 // configureBack(_navigator)
 
-import navbar_styles from '../modules/ui/styles/navbar'
+import navbarStyles from '../modules/ui/styles/navbar'
 
 const styles = StyleSheet.create({
   container: {
@@ -23,17 +23,17 @@ const styles = StyleSheet.create({
 
 const NavigationBarRouteMapper = {
 
-  LeftButton: (route, navigator, index, nav_state) => {
+  LeftButton: (route, navigator, index, navState) => {
     if (index === 0) {
       return null
     }
 
-    const previousRoute = nav_state.routeStack[index - 1]
+    const previousRoute = navState.routeStack[index - 1]
     return (
       <TouchableOpacity
         onPress={() => navigator.pop()}
-        style={navbar_styles.navBarLeftButton}>
-        <Text style={[navbar_styles.navBarText, navbar_styles.navBarButtonText]}>
+        style={navbarStyles.navBarLeftButton}>
+        <Text style={[navbarStyles.navBarText, navbarStyles.navBarButtonText]}>
           {previousRoute.name || 'back'}
         </Text>
       </TouchableOpacity>
@@ -44,8 +44,8 @@ const NavigationBarRouteMapper = {
     return (
       <TouchableOpacity
         onPress={() => navigator.push(newRandomRoute())}
-        style={navbar_styles.navBarRightButton}>
-        <Text style={[navbar_styles.navBarText, navbar_styles.navBarButtonText]}>
+        style={navbarStyles.navBarRightButton}>
+        <Text style={[navbarStyles.navBarText, navbarStyles.navBarButtonText]}>
           Next
         </Text>
       </TouchableOpacity>
@@ -54,7 +54,7 @@ const NavigationBarRouteMapper = {
 
   Title: (route, navigator, index) => {
     return (
-      <Text style={[navbar_styles.navBarText, navbar_styles.navBarTitleText]}>
+      <Text style={[navbarStyles.navBarText, navbarStyles.navBarTitleText]}>
         {route.name} [{index}]
       </Text>
     )
@@ -83,7 +83,7 @@ export default class Nav extends React.Component {
         navigationBar={
           <Navigator.NavigationBar
             routeMapper={NavigationBarRouteMapper}
-            style={navbar_styles.navBar}
+            style={navbarStyles.navBar}
           />
         }
       />

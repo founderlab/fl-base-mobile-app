@@ -7,26 +7,26 @@ import {requestMiddleware} from 'redux-request-middleware'
 import createRequestModifier from 'superagent-request-modifier'
 import {accessTokenMiddleware, requestLoggerMiddleware} from 'fl-auth-redux'
 
-import observeStore from './lib/observe_store'
+import observeStore from './lib/observeStore'
 import config from './config'
 import reducer from './reducer'
 import Nav from './routing/Nav'
 
 const user = null
 
-const initial_state = {
+const initialState = {
   auth: fromJS({user: user || {}}),
   config: fromJS(config),
 }
 
 const middlewares = applyMiddleware(thunk, accessTokenMiddleware, requestLoggerMiddleware, requestMiddleware)
 const finalCreateStore = middlewares(createStore)
-const store = finalCreateStore(reducer, initial_state)
+const store = finalCreateStore(reducer, initialState)
 
-const request_modifier = createRequestModifier(require('superagent'), {hostname: config.hostname})
-observeStore(store, store => store.auth.get('access_token'), access_token => {
-  request_modifier.setHeader({authorization: `Bearer ${access_token}`})
-  console.log('request_modifier.setHeader', {authorization: `Bearer ${access_token}`})
+const requestModifier = createRequestModifier(require('superagent'), {hostname: config.hostname})
+observeStore(store, store => store.auth.get('accessToken'), accessToken => {
+  requestModifier.setHeader({authorization: `Bearer ${accessToken}`})
+  console.log('requestModifier.setHeader', {authorization: `Bearer ${accessToken}`})
 })
 
 class FLNativeApp extends React.Component {
