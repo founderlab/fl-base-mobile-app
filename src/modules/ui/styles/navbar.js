@@ -1,5 +1,4 @@
 import {StyleSheet, PixelRatio} from 'react-native'
-import cssVar from 'cssVar'
 
 export default StyleSheet.create({
   messageText: {
@@ -27,7 +26,7 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   navBarTitleText: {
-    color: cssVar('fbui-bluegray-60'),
+    color: '#333',
     fontWeight: '500',
     marginVertical: 9,
   },
@@ -38,7 +37,7 @@ export default StyleSheet.create({
     paddingRight: 10,
   },
   navBarButtonText: {
-    color: cssVar('fbui-accent-blue'),
+    color: '#333',
   },
   scene: {
     flex: 1,

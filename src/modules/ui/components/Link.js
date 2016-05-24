@@ -1,8 +1,8 @@
+import _ from 'lodash'
 import React, {
   Text,
   TouchableOpacity,
 } from 'react-native'
-import isArray from 'lodash/lang/isArray'
 import router from '../../../routing'
 
 export default class Link extends React.Component {
@@ -34,7 +34,7 @@ export default class Link extends React.Component {
     }
 
     let children = this.props.children
-    children = (React.isValidElement(children) || isArray(children)) ? this.props.children : (<Text style={style}>{children}</Text>)
+    children = (React.isValidElement(children) || _.isArray(children)) ? this.props.children : (<Text style={style}>{children}</Text>)
 
     return (
       <TouchableOpacity {...touchableProps}>
