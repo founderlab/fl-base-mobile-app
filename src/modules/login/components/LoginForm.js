@@ -1,9 +1,10 @@
-import React, {
+import React from 'react'
+import {
   Text,
   View,
   TextInput,
 } from 'react-native'
-import {reduxForm} from 'redux-form/native'
+import {reduxForm} from 'redux-form'
 
 import layoutStyles from '../../ui/styles/layout'
 import typographyStyles from '../../ui/styles/typography'

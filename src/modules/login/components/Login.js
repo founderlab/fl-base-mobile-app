@@ -1,6 +1,4 @@
-import React, {
-
-} from 'react-native'
+import React from 'react'
 import LoginForm from './LoginForm'
 
 export default class Login extends React.Component {

@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import React, {
+import React from 'react'
+import {
   Text,
   TouchableOpacity,
 } from 'react-native'

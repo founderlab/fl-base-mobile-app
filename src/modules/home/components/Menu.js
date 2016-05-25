@@ -1,4 +1,5 @@
-import React, {
+import React from 'react'
+import {
   Text,
   View,
 } from 'react-native'
@@ -16,7 +17,7 @@ export default class Menu extends React.Component {
     return (
       <View style={layoutStyles.container}>
         <Text style={typographyStyles.h1}>
-          FireFront
+          FounderLab_replaceme
         </Text>
         <Text style={typographyStyles.text}>
           more text ->

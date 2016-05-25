@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import React from 'react-native'
-import {connect} from 'react-redux/native'
+import React from 'react'
+import {connect} from 'react-redux'
 import {login} from 'fl-auth-redux'
 
 import Login from '../components/Login'

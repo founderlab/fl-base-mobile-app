@@ -8,20 +8,20 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "fl-auth-redux": "^0.10.0",
-    "redux-request-middleware": "^0.10.0",
-    "superagent-request-modifier": "^0.10.2",
-
-    "immutable": "^3.7.5",
-    "lodash": "^4.0.0",
-    "redux": "^3.0.0",
-    "react-native": "^0.17.0",
-    "react-redux": "^3.1.0",
-    "redux-form": "^4.1.0",
-    "redux-thunk": "^1.0.0",
+    "fl-auth-redux": "^0.11.1",
+    "immutable": "^3.8.1",
+    "lodash": "^4.13.1",
+    "react": "~15.0.2",
+    "react-native": "^0.26.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-form": "^5.2.4",
+    "redux-request-middleware": "^0.11.1",
+    "redux-thunk": "^2.1.0",
+    "reselect": "^2.5.1",
     "superagent": "0.18.0",
-    "warning": "^2.1.0",
-    "reselect": "^2.0.1"
+    "superagent-request-modifier": "^0.11.0",
+    "warning": "^2.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",

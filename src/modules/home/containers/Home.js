@@ -1,4 +1,4 @@
-import React from 'react-native'
+import React from 'react'
 import Home from '../components/Home'
 
 export default class HomeContainer extends React.Component {
