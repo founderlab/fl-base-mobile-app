@@ -33,12 +33,10 @@ class FLNativeApp extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        {() =>
-          <Nav />
-        }
+        <Nav />
       </Provider>
     )
   }
 }
 
-AppRegistry.registerComponent('FireFront', () => FLNativeApp)
+AppRegistry.registerComponent('FounderLab_replaceme', () => FLNativeApp)
