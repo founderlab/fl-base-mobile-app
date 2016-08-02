@@ -1,10 +1,11 @@
 import _ from 'lodash' // eslint-disable-line
-import React, {
+import React from 'react'
+import {
   Text,
   TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import navbar_styles from '../../ui/styles/navbar'
+import navbarStyles from '../../ui/styles/navbar'
 
 
 export default function createNavBarRouteMapper({onDrawerToggle}) {
@@ -14,7 +15,7 @@ export default function createNavBarRouteMapper({onDrawerToggle}) {
 
       if (route.path === '/') {
         return (
-          <TouchableOpacity onPress={onDrawerToggle} style={navbar_styles.navbarLeftButton}>
+          <TouchableOpacity onPress={onDrawerToggle} style={navbarStyles.navbarLeftButton}>
             <Icon name="bars" size={30} color="#333" />
           </TouchableOpacity>
         )
@@ -26,9 +27,9 @@ export default function createNavBarRouteMapper({onDrawerToggle}) {
       return (
         <TouchableOpacity
           onPress={() => navigator.pop()}
-          style={navbar_styles.navbarLeftButton}
+          style={navbarStyles.navbarLeftButton}
         >
-          <Text style={[navbar_styles.navbarText, navbar_styles.navbarButtonText]}>
+          <Text style={[navbarStyles.navbarText, navbarStyles.navbarButtonText]}>
             <Icon name="chevron-left" size={14} color="#333" />
             {prev_route.name || 'back'}
           </Text>
@@ -41,8 +42,8 @@ export default function createNavBarRouteMapper({onDrawerToggle}) {
       // return (
       //   <TouchableOpacity
       //     onPress={() => navigator.push(newRandomRoute())}
-      //     style={navbar_styles.navbarRightButton}>
-      //     <Text style={[navbar_styles.navbarText, navbar_styles.navbarButtonText]}>
+      //     style={navbarStyles.navbarRightButton}>
+      //     <Text style={[navbarStyles.navbarText, navbarStyles.navbarButtonText]}>
       //       Next
       //     </Text>
       //   </TouchableOpacity>
@@ -51,7 +52,7 @@ export default function createNavBarRouteMapper({onDrawerToggle}) {
 
     Title: (route, navigator, index) => { //eslint-disable-line
       return (
-        <Text style={[navbar_styles.navbarText, navbar_styles.navbarTitleText]}>
+        <Text style={[navbarStyles.navbarText, navbarStyles.navbarTitleText]}>
           {route.name}
         </Text>
       )

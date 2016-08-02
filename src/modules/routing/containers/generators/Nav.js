@@ -1,13 +1,14 @@
 import _ from 'lodash' // eslint-disable-line
-import React, {
+import React from 'react'
+import {
   Navigator,
   StyleSheet,
 } from 'react-native'
-import {connect} from 'react-redux/native'
+import {connect} from 'react-redux'
 import Drawer from 'react-native-drawer'
 import router from '../../index'
 import createNavBarRouteMapper from '../../components/NavBarRouteMapper'
-import navbar_styles from '../../../ui/styles/navbar'
+import navbarStyles from '../../../ui/styles/navbar'
 import DrawerMenu from '../../../app/components/DrawerMenu'
 import Notifications from '../../../app/containers/Notifications'
 
@@ -27,9 +28,14 @@ export default function createNavContainer(store) {
 
   class NavContainer extends React.Component {
 
+    static propTypes = {
+      auth: React.PropTypes.object,
+      config: React.PropTypes.object.isRequired,
+    }
+
     handleDrawerToggle = () => {
       this.refs.drawer.toggle()
-    };
+    }
 
     drawIsOpen = () => this.refs.drawer && this.refs.drawer._open;
 
@@ -42,14 +48,17 @@ export default function createNavContainer(store) {
           onDrawerToggle: this.handleDrawerToggle,
         }))
       }
-    };
+    }
 
     navPushFromDrawer = (route) => {
       this.refs.nav.push(route)
       this.refs.drawer.close()
-    };
+    }
 
     render() {
+      const initialRoute = this.props.auth.get('user') ? 'menu' : 'home'
+      console.log('initialRoute', initialRoute, this.props.auth.toJSON())
+
       return (
         <Drawer
           ref="drawer"
@@ -63,12 +72,12 @@ export default function createNavContainer(store) {
           <Navigator
             ref="nav"
             style={styles.container}
-            initialRoute={router.get('home')}
+            initialRoute={router.get(initialRoute)}
             renderScene={this.routeToComponent}
             navigationBar={
               <Navigator.NavigationBar
                 routeMapper={createNavBarRouteMapper({drawIsOpen: this.drawIsOpen, onDrawerToggle: this.handleDrawerToggle})}
-                style={navbar_styles.navbar}
+                style={navbarStyles.navbar}
               />
             }
           />
@@ -78,5 +87,5 @@ export default function createNavContainer(store) {
     }
   }
 
-  return connect(state => _.pick(state, 'auth'))(NavContainer)
+  return connect(state => _.pick(state, 'auth', 'config'))(NavContainer)
 }

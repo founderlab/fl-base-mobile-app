@@ -5,7 +5,7 @@ export default class HomeContainer extends React.Component {
 
   render() {
     return (
-      <Home nav={this.props.nav} />
+      <Home {...this.props} />
     )
   }
 

@@ -21,9 +21,6 @@ class LoginForm extends React.Component {
 
     return (
       <View style={layoutStyles.container}>
-        <Text style={typographyStyles.h1}>
-          login
-        </Text>
         <TextInput
           style={formStyles.textInput}
           placeholder="email"
@@ -40,7 +37,7 @@ class LoginForm extends React.Component {
         />
         {errors.login && <Text>{errorMsg}</Text>}
         <Button onPress={handleSubmit} style={buttonStyles.button}>
-          Login
+          Sign in
         </Button>
       </View>
     )

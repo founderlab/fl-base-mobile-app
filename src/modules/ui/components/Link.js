@@ -1,10 +1,10 @@
-import _ from 'lodash'
+import _ from 'lodash' // eslint-disable-line
 import React from 'react'
 import {
   Text,
   TouchableOpacity,
 } from 'react-native'
-import router from '../../../routing'
+import router from '../../routing'
 
 export default class Link extends React.Component {
 

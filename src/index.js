@@ -1,17 +1,20 @@
 import _ from 'lodash' // eslint-disable-line
-import React, {AppRegistry} from 'react-native'
+import React from 'react'
+import {AppRegistry} from 'react-native'
 import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import {Provider} from 'react-redux/native'
-import {requestMiddleware, responseParserMiddleware} from 'redux-request-middleware'
+import {Provider} from 'react-redux'
+// import {fromJS} from 'immutable'
+import {requestMiddleware, requestLoggerMiddleware, responseParserMiddleware} from 'redux-request-middleware'
 import createRequestModifier from 'superagent-request-modifier'
-import {requestLoggerMiddleware} from 'fl-auth-redux'
+// import {accessTokenMiddleware} from 'fl-auth-redux'
+import {observeStore} from 'fl-utils'
+
 import * as storage from 'redux-storage'
 import createEngine from 'redux-storage/engines/reactNativeAsyncStorage'
 
 import lostConnectionMiddleware from './lib/lostConnectionMiddleware'
 import filter, {errorsFilter} from './lib/storageFilters'
-import observeStore from './lib/observeStore'
 import config from './config'
 import reducer from './reducer'
 import createNav from './modules/routing/containers/generators/Nav'
@@ -58,12 +61,10 @@ class FLNativeApp extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        {() =>
-          <Nav />
-        }
+        <Nav />
       </Provider>
     )
   }
 }
 
-AppRegistry.registerComponent('FounderLab_replaceme', () => FLNativeApp)
+AppRegistry.registerComponent('eventure', () => FLNativeApp)

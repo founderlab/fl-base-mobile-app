@@ -1,7 +1,12 @@
-import {StyleSheet} from 'react-native'
+// import {Dimensions} from 'react'
+import {Dimensions, StyleSheet} from 'react-native'
+
+const {width, height} = Dimensions.get('window')
 
 export default StyleSheet.create({
   textInput: {
+    width: width-10,
+    alignSelf: 'stretch',
     height: 40,
     borderColor: '#bbb',
     borderWidth: 1,

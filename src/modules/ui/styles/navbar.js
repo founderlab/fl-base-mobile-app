@@ -26,7 +26,6 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   navBarTitleText: {
-    color: '#333',
     fontWeight: '500',
     marginVertical: 9,
   },
@@ -37,7 +36,6 @@ export default StyleSheet.create({
     paddingRight: 10,
   },
   navBarButtonText: {
-    color: '#333',
   },
   scene: {
     flex: 1,

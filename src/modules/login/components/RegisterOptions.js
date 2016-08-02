@@ -1,9 +1,6 @@
 import _ from 'lodash' // eslint-disable-line
 import React from 'react'
-import {
-  Text,
-  View,
-} from 'react-native'
+import {View} from 'react-native'
 
 import layoutStyles from '../../ui/styles/layout'
 import typographyStyles from '../../ui/styles/typography'
@@ -12,9 +9,9 @@ import buttonStyles from '../../ui/styles/button'
 import Button from '../../ui/components/Button'
 import Link from '../../ui/components/Link'
 
-import RegisterOptions from '../../login/components/RegisterOptions'
+import FacebookLogin from '../containers/FacebookLogin'
 
-export default class Home extends React.Component {
+export default class RegisterOptions extends React.Component {
 
 
   render() {
@@ -22,16 +19,20 @@ export default class Home extends React.Component {
 
     return (
       <View style={layoutStyles.container}>
-        <RegisterOptions {...this.props} />
+        <FacebookLogin {...this.props} />
+
+        <Link nav={nav} to="login" style={buttonStyles.button}>
+          Register with email
+        </Link>
+        <Link nav={nav} to="login" >
+          Already have an account? Sign in
+        </Link>
       </View>
     )
   }
 }
 
-Home.propTypes = {
+RegisterOptions.propTypes = {
   nav: React.PropTypes.object.isRequired,
 }
 
-        // <Button onPress={this.handleFacebook} style={buttonStyles.button}>
-        //   Login with Facebook
-        // </Button>

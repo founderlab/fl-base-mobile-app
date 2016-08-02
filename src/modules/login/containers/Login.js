@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {login} from 'fl-auth-redux'
 
 import Login from '../components/Login'
-import router from '../../../routing'
+import router from '../../routing'
 
 class LoginContainer extends React.Component {
 
@@ -12,7 +12,7 @@ class LoginContainer extends React.Component {
   //   if (this.props.auth.get('email')) this.props.nav.push({route: 'home'})
   // }
 
-  onLogin = data => {
+  handleLogin = data => {
     console.log('dispatching', login, data)
     this.props.login(`${this.props.config.get('url')}/login`, data.email, data.password, (err) => {
       console.log('req done', err)
@@ -21,9 +21,9 @@ class LoginContainer extends React.Component {
   };
 
   render() {
-    const {auth} = this.props
+    // const {auth} = this.props
     return (
-      <Login onSubmit={this.onLogin} auth={auth} />
+      <Login onSubmit={this.handleLogin} onFacebookLogin={this.handleFacebookLogin} {...this.props} />
     )
   }
 }

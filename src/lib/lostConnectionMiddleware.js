@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import {prune, add as addNotification} from '../modules/app/notification_actions'
+import {prune, add as addNotification} from '../modules/app/notificationActions'
 
 const defaults = {
   connectionError: action => action.error && action.error.crossDomain,

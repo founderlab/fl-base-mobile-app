@@ -1,18 +1,24 @@
 import Router from './Router'
-import Home from '../modules/home/containers/Home'
-import Login from '../modules/login/containers/Login'
+import Home from '../app/containers/Home'
+import Menu from '../app/containers/Menu'
+import Login from '../login/containers/Login'
 
 export default new Router({
   routes: [
     {
       name: 'home',
       path: '/',
-      component: Home,
+      Component: Home,
+    },
+    {
+      name: 'menu',
+      path: '/menu',
+      Component: Menu,
     },
     {
       name: 'login',
       path: '/login',
-      component: Login,
+      Component: Login,
     },
   ],
 })
