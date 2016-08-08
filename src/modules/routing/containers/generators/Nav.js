@@ -7,7 +7,7 @@ import {
 import {connect} from 'react-redux'
 import Drawer from 'react-native-drawer'
 import router from '../../index'
-import createNavBarRouteMapper from '../../components/NavBarRouteMapper'
+import createNavbarRouteMapper from '../../components/NavbarRouteMapper'
 import navbarStyles from '../../../ui/styles/navbar'
 import DrawerMenu from '../../../app/components/DrawerMenu'
 import Notifications from '../../../app/containers/Notifications'
@@ -76,7 +76,7 @@ export default function createNavContainer(store) {
             renderScene={this.routeToComponent}
             navigationBar={
               <Navigator.NavigationBar
-                routeMapper={createNavBarRouteMapper({drawIsOpen: this.drawIsOpen, onDrawerToggle: this.handleDrawerToggle})}
+                routeMapper={createNavbarRouteMapper({drawIsOpen: this.drawIsOpen, onDrawerToggle: this.handleDrawerToggle})}
                 style={navbarStyles.navbar}
               />
             }

@@ -7,8 +7,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import navbarStyles from '../../ui/styles/navbar'
 
-
-export default function createNavBarRouteMapper({onDrawerToggle}) {
+export default function createNavbarRouteMapper({onDrawerToggle}) {
 
   return {
     LeftButton: (route, navigator, index, nav_state) => {
@@ -38,17 +37,6 @@ export default function createNavBarRouteMapper({onDrawerToggle}) {
     },
 
     RightButton: () => null,
-    // RightButton: (route, navigator) => {
-      // return (
-      //   <TouchableOpacity
-      //     onPress={() => navigator.push(newRandomRoute())}
-      //     style={navbarStyles.navbarRightButton}>
-      //     <Text style={[navbarStyles.navbarText, navbarStyles.navbarButtonText]}>
-      //       Next
-      //     </Text>
-      //   </TouchableOpacity>
-      // )
-    // },
 
     Title: (route, navigator, index) => { //eslint-disable-line
       return (
