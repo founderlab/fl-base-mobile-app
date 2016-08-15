@@ -39,13 +39,12 @@ class RegisterContainer extends React.Component {
   render() {
     const {auth} = this.props
     const errorMsg = auth.get('errors').get('register')
-    // if (errorMsg && process.env.NODE_ENV === 'production') errorMsg = 'Bummer. Something went wrong'
 
     return (
       <LoginForm
         registerMode
         onSubmit={this.handleRegister}
-        errorMsg={errorMsg}
+        errorMsg={(errorMsg && !_.isString(errorMsg)) ? errorMsg.toString() : errorMsg}
         loading={this.state.loading}
         {...this.props}
       />

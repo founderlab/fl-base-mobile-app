@@ -17,7 +17,6 @@ class LoginContainer extends React.Component {
   }
 
   handleLogin = data => {
-    console.log('dispatching login', data)
     this.props.login(`${this.props.config.get('url')}/login`, data.email, data.password, err => {
       this.setState({loading: false})
       if (err) return console.log(err)
@@ -34,13 +33,12 @@ class LoginContainer extends React.Component {
   render() {
     const {auth} = this.props
     const errorMsg = auth.get('errors').get('login')
-    // if (errorMsg && process.env.NODE_ENV === 'production') errorMsg = 'Bummer. Something went wrong'
 
     return (
       <LoginForm
         onSubmit={this.handleLogin}
         onFacebookLogin={this.handleFacebookLogin}
-        errorMsg={errorMsg}
+        errorMsg={(errorMsg && !_.isString(errorMsg)) ? errorMsg.toString() : errorMsg}
         {...this.props}
       />
     )
