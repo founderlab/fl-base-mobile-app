@@ -1,45 +1,46 @@
-import {StyleSheet, PixelRatio} from 'react-native'
+import EStyleSheet from 'react-native-extended-stylesheet'
+import {Dimensions} from 'react-native'
 
-export default StyleSheet.create({
-  messageText: {
-    fontSize: 17,
-    fontWeight: '500',
-    padding: 15,
-    marginTop: 50,
-    marginLeft: 15,
+export default EStyleSheet.create({
+
+  navbar: {
   },
-  button: {
-    backgroundColor: 'white',
-    padding: 15,
-    borderBottomWidth: 1 / PixelRatio.get(),
-    borderBottomColor: '#CDCDCD',
+
+  container: {
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: 5,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
   },
-  buttonText: {
-    fontSize: 17,
-    fontWeight: '500',
+
+  icon: {
+    // backgroundColor: '#dff',
+    // flex: 1,
+    color: '#fff',
+    fontSize: 20,
+    width: 20,
   },
-  navBar: {
-    backgroundColor: 'white',
-  },
-  navBarText: {
+
+  navbarText: {
+    // backgroundColor: '#ffd',
+    // flex: 1,
+    // marginVertical: 10,
     fontSize: 16,
-    marginVertical: 10,
   },
-  navBarTitleText: {
+
+  navbarTitleText: {
     fontWeight: '500',
     marginVertical: 9,
   },
-  navBarLeftButton: {
-    paddingLeft: 10,
+
+  navbarLeftButton: {
+    paddingLeft: 5,
   },
-  navBarRightButton: {
-    paddingRight: 10,
+
+  navbarRightButton: {
+    paddingRight: 5,
   },
-  navBarButtonText: {
-  },
-  scene: {
-    flex: 1,
-    paddingTop: 20,
-    backgroundColor: '#EAEAEA',
-  },
+
 })

@@ -4,6 +4,13 @@ import {LoginButton} from 'react-native-fbsdk'
 
 export default class FacebookLogin extends React.Component {
 
+  static propTypes = {
+    readPermissions: React.PropTypes.array,
+    publishPermissions: React.PropTypes.array,
+    onFacebookLogin: React.PropTypes.func.isRequired,
+    onFacebookLogout: React.PropTypes.func.isRequired,
+  }
+
   static defaultProps = {
     readPermissions: [],
     publishPermissions: [],
@@ -21,11 +28,4 @@ export default class FacebookLogin extends React.Component {
       />
     )
   }
-}
-
-FacebookLogin.propTypes = {
-  readPermissions: React.PropTypes.array,
-  publishPermissions: React.PropTypes.array,
-  onFacebookLogin: React.PropTypes.func.isRequired,
-  onFacebookLogout: React.PropTypes.func.isRequired,
 }

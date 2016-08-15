@@ -1,63 +1,49 @@
 import _ from 'lodash' // eslint-disable-line
 import React from 'react'
 import {AppRegistry} from 'react-native'
-import {createStore, applyMiddleware} from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk'
 import {Provider} from 'react-redux'
-// import {fromJS} from 'immutable'
+import devTools from 'remote-redux-devtools'
 import {requestMiddleware, requestLoggerMiddleware, responseParserMiddleware} from 'redux-request-middleware'
 import createRequestModifier from 'superagent-request-modifier'
-// import {accessTokenMiddleware} from 'fl-auth-redux'
 import {observeStore} from 'fl-utils'
 
-import * as storage from 'redux-storage'
-import createEngine from 'redux-storage/engines/reactNativeAsyncStorage'
-
 import lostConnectionMiddleware from './lib/lostConnectionMiddleware'
-import filter, {errorsFilter} from './lib/storageFilters'
+import mixpanelMiddleware from './lib/mixpanelMiddleware'
 import config from './config'
 import reducer from './reducer'
 import createNav from './modules/routing/containers/generators/Nav'
+import EStyleSheet from 'react-native-extended-stylesheet'
+import {storageReducer, loadStorage, storageMiddleware} from './storage'
 
-const storage_keys = ['auth']
-
-const engine = storage.decorators.immutablejs(
-  filter(
-    storage.decorators.filter(createEngine('app_state'), storage_keys),
-    {auth: errorsFilter}
-  ),
-  storage_keys
-)
-const storageMiddleware = storage.createMiddleware(engine)
-
-const middlewares = applyMiddleware(
+const store = createStore(storageReducer(reducer), {}, compose(applyMiddleware(
   thunk,
   requestLoggerMiddleware,
   requestMiddleware,
+  requestLoggerMiddleware,
   responseParserMiddleware,
   storageMiddleware,
-  requestLoggerMiddleware,
   lostConnectionMiddleware,
-)
-const createStoreWithMiddleware = middlewares(createStore)
-const store = createStoreWithMiddleware(storage.reducer(reducer))
+  mixpanelMiddleware,
+), devTools()))
 
-const load = storage.createLoader(engine)
-load(store)
+loadStorage(store)
 
-const request_modifier = createRequestModifier(require('superagent'), {hostname: config.hostname})
-observeStore(store, store => store.auth.get('access_token'), access_token => {
-  request_modifier.setHeader({authorization: `Bearer ${access_token}`})
-  console.log('[AUTH TOKEN SET]', {authorization: `Bearer ${access_token}`})
+const requestModifier = createRequestModifier(require('superagent'), {hostname: config.hostname})
+observeStore(store, store => store.auth.get('accessToken'), accessToken => {
+  const header = {authorization: accessToken ? `Bearer ${accessToken}` : null}
+  requestModifier.setHeader(header)
+  console.log('[AUTH TOKEN HEADER SET]', header)
 })
 
 import Backbone from 'backbone'
-import createBasicAjax from './lib/createBasicAjax'
-Backbone.ajax = createBasicAjax(config)
+import createBackboneAjax from './lib/createBackboneAjax'
+Backbone.ajax = createBackboneAjax(config)
 
 const Nav = createNav(store)
 
-class FLNativeApp extends React.Component {
+class EventureApp extends React.Component {
   render() {
     return (
       <Provider store={store}>
@@ -67,4 +53,10 @@ class FLNativeApp extends React.Component {
   }
 }
 
-AppRegistry.registerComponent('eventure', () => FLNativeApp)
+// calculate styles
+EStyleSheet.build()
+
+AppRegistry.registerComponent('FounderLab_replaceme', () => EventureApp)
+
+// Make sure window.location is present so superagent doesn't crash
+window.location = {protocol: 'https:'}

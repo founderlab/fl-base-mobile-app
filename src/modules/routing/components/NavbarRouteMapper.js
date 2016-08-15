@@ -1,45 +1,38 @@
 import _ from 'lodash' // eslint-disable-line
 import React from 'react'
-import {
-  Text,
-  TouchableOpacity,
-} from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import {TouchableOpacity} from 'react-native'
+import Icon from 'react-native-vector-icons/Entypo'
+import Text from '../../ui/components/Text'
 import navbarStyles from '../../ui/styles/navbar'
+import textStyles from '../../ui/styles/text'
 
-export default function createNavbarRouteMapper({onDrawerToggle}) {
+export default function createNavbarRouteMapper() {
 
   return {
-    LeftButton: (route, navigator, index, nav_state) => {
+    LeftButton: (route, nav, index, navState) => {
+      const prevRoute = navState.routeStack[index - 1]
+      if (!prevRoute) return null
 
-      if (route.path === '/') {
-        return (
-          <TouchableOpacity onPress={onDrawerToggle} style={navbarStyles.navbarLeftButton}>
-            <Icon name="bars" size={30} color="#333" />
-          </TouchableOpacity>
-        )
-      }
-
-      else if (index === 0) return null
-
-      const prev_route = nav_state.routeStack[index - 1]
       return (
         <TouchableOpacity
-          onPress={() => navigator.pop()}
-          style={navbarStyles.navbarLeftButton}
+          onPress={() => nav.pop()}
+          style={navbarStyles.container}
         >
-          <Text style={[navbarStyles.navbarText, navbarStyles.navbarButtonText]}>
-            <Icon name="chevron-left" size={14} color="#333" />
-            {prev_route.name || 'back'}
-          </Text>
+          <Icon name="chevron-thin-left" style={[navbarStyles.icon, textStyles.darkGray]} />
+
+          {prevRoute.showName && prevRoute.name && (
+            <Text style={[navbarStyles.navbarText, navbarStyles.navbarLeftButton, textStyles.darkGray]}>
+              {prevRoute.name}
+            </Text>
+          )}
         </TouchableOpacity>
       )
     },
 
     RightButton: () => null,
 
-    Title: (route, navigator, index) => { //eslint-disable-line
-      return (
+    Title: (route, nav, index) => { //eslint-disable-line
+      return route.showName && route.name && (
         <Text style={[navbarStyles.navbarText, navbarStyles.navbarTitleText]}>
           {route.name}
         </Text>
@@ -48,3 +41,6 @@ export default function createNavbarRouteMapper({onDrawerToggle}) {
 
   }
 }
+
+
+// <Text style={[navbarStyles.navbarText, textStyles.darkGray]}>Back</Text>

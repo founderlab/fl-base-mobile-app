@@ -1,23 +1,17 @@
 import _ from 'lodash' // eslint-disable-line
 import React from 'react'
-import {
-  Navigator,
-  StyleSheet,
-} from 'react-native'
+import {Navigator, View, StatusBar} from 'react-native'
 import {connect} from 'react-redux'
 import Drawer from 'react-native-drawer'
 import router from '../../index'
 import createNavbarRouteMapper from '../../components/NavbarRouteMapper'
-import navbarStyles from '../../../ui/styles/navbar'
 import DrawerMenu from '../../../app/components/DrawerMenu'
+import Background from '../../../app/components/Background'
 import Notifications from '../../../app/containers/Notifications'
+import {routeChange} from '../../actions'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-})
+import appStyles from '../../../ui/styles/app'
+import navbarStyles from '../../../ui/styles/navbar'
 
 // const _navigator = null
 // todo: android back
@@ -29,59 +23,100 @@ export default function createNavContainer(store) {
   class NavContainer extends React.Component {
 
     static propTypes = {
-      auth: React.PropTypes.object,
+      auth: React.PropTypes.object.isRequired,    // Need to connect this so we rerender when auth changes
       config: React.PropTypes.object.isRequired,
+      path: React.PropTypes.string,
     }
 
-    handleDrawerToggle = () => {
-      this.refs.drawer.toggle()
+    static childContextTypes = {
+      s3Url: React.PropTypes.string,
     }
 
-    drawIsOpen = () => this.refs.drawer && this.refs.drawer._open;
+    constructor() {
+      super()
+      this.state = {}
+    }
 
-    routeToComponent = (route, nav) => {
-      if (route.Component) {
-        // console.log('getting data', !!route.Component.fetchData, route.name)
-        if (route.Component.fetchData) setTimeout(() => route.Component.fetchData(store), 0)
-        return React.createElement(route.Component, Object.assign({}, route.props, {
-          nav,
-          onDrawerToggle: this.handleDrawerToggle,
-        }))
+    getChildContext() {
+      return {s3Url: this.state.s3Url}
+    }
+
+    componentWillMount() {
+      console.log('mounting', this.props.config.get('s3Url'))
+      if (!this.state.s3Url) this.setState({s3Url: this.props.config.get('s3Url')})
+    }
+
+    getDefaultRoute() {
+      return router.get('/splash')
+    }
+
+    getCurrentRoute() {
+      if (this.refs.nav) {
+        return _.last(this.refs.nav.getCurrentRoutes())
       }
+      return this.getDefaultRoute()
     }
 
-    navPushFromDrawer = (route) => {
+    push = route => {
       this.refs.nav.push(route)
       this.refs.drawer.close()
     }
 
+    canGoBack() {
+      return this.refs.nav && this.refs.nav.getCurrentRoutes().length > 1
+    }
+
+    routeToComponent = (route, nav) => {
+      const {Component} = route
+      if (Component) {
+        setTimeout(() => store.dispatch(routeChange(route.path)), 0)
+
+        if (Component.fetchData && !Component.__is_fetching) {
+          Component.__is_fetching = true
+
+          setTimeout(() => {
+            Component.fetchData({store, route, nav}, err => {
+              if (err) console.error(err)
+              Component.__is_fetching = false
+            })
+          }, 0)
+        }
+
+        return (
+          <Component route={route} nav={nav} {...route.props} />
+        )
+      }
+    }
+
     render() {
-      const initialRoute = this.props.auth.get('user') ? 'menu' : 'home'
-      console.log('initialRoute', initialRoute, this.props.auth.toJSON())
+      const route = this.getCurrentRoute()
 
       return (
         <Drawer
           ref="drawer"
           type="static"
-          content={<DrawerMenu nav={{push: this.navPushFromDrawer}} {...this.props} />}
+          content={<DrawerMenu nav={{push: this.push}} {...this.props} />}
           openDrawerOffset={100}
           styles={{main: {shadowColor: '#000000', shadowOpacity: 0.4, shadowRadius: 3}}}
           tweenHandler={Drawer.tweenPresets.parallax}
           tapToClose
         >
-          <Navigator
-            ref="nav"
-            style={styles.container}
-            initialRoute={router.get(initialRoute)}
-            renderScene={this.routeToComponent}
-            navigationBar={
-              <Navigator.NavigationBar
-                routeMapper={createNavbarRouteMapper({drawIsOpen: this.drawIsOpen, onDrawerToggle: this.handleDrawerToggle})}
-                style={navbarStyles.navbar}
-              />
-            }
-          />
-          <Notifications />
+          <View style={appStyles.container}>
+            <StatusBar />
+            {route.backgroundImage && <Background source={route.backgroundImage} />}
+            <Navigator
+              ref="nav"
+              initialRoute={this.getDefaultRoute()}
+              renderScene={this.routeToComponent}
+              navigationBar={
+                <Navigator.NavigationBar
+                  routeMapper={createNavbarRouteMapper()}
+                  style={navbarStyles.navbar}
+                />
+              }
+            />
+            <Notifications />
+          </View>
         </Drawer>
       )
     }

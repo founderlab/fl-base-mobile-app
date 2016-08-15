@@ -1,45 +1,37 @@
 import React from 'react'
-import {
-  Text,
-  View,
-  // TextInput,
-} from 'react-native'
+import {View} from 'react-native'
+import LinkButton from '../../ui/components/LinkButton'
+import Text from '../../ui/components/Text'
 
-import layout_styles from '../../ui/styles/layout'
-import typography_styles from '../../ui/styles/typography'
-import form_styles from '../../ui/styles/form'
-import button_styles from '../../ui/styles/button'
-import Button from '../../ui/components/Button'
+import appStyles from '../../ui/styles/app'
+import menuStyles from '../../ui/styles/menu'
+import textStyles from '../../ui/styles/text'
 
 export default class Settings extends React.Component {
 
-  selectPassword = () => this._password && this._password.focus();
+  static propTypes = {
+    onLogout: React.PropTypes.func.isRequired,
+  }
 
   render() {
-    const {auth, onLogout} = this.props
-    const logged_in = auth.get('access_token')
+    const {onLogout} = this.props
 
     return (
-      <View style={layout_styles.container}>
-        <Text style={typography_styles.h1}>
-          Settings
-        </Text>
+      <View style={appStyles.container}>
 
-        {logged_in && (
-          <Button onPress={onLogout} style={button_styles.button}>
-            Logout
-          </Button>
-        )}
+        <View style={[menuStyles.container, {marginTop: 80}]}>
+          <Text style={[textStyles.h1, textStyles.darkGray]}>Settings</Text>
+        </View>
+
+        <View style={menuStyles.buttonsContainer}>
+
+          <LinkButton onPress={onLogout} icon="sign-out" styleClass="clubs">
+            Sign out
+          </LinkButton>
+        </View>
+
       </View>
     )
   }
 }
 
-Settings.propTypes = {
-  auth: React.PropTypes.object,
-
-  form_styles: React.PropTypes.object,
-  button_styles: React.PropTypes.object,
-
-  onLogout: React.PropTypes.func.isRequired,
-}

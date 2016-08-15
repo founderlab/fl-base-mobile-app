@@ -1,7 +1,7 @@
 import request from 'superagent'
 
 // Implement ajax requests with superagent
-export default function createBasicAjax(config) {
+export default function createBackboneAjax(config) {
   return function basicAjax(options) {
     if (options.type === null) options.type = 'GET'
 

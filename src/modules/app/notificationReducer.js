@@ -2,11 +2,11 @@ import _ from 'lodash' // eslint-disable-line
 import {fromJS} from 'immutable'
 import {TYPES} from './notificationActions'
 
-const default_state = fromJS({
+const defaultState = fromJS({
   notifications: [],
 })
 
-export default function reducer(state=default_state, action={}) {
+export default function reducer(state=defaultState, action={}) {
 
   switch (action.type) {
 

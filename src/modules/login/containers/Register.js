@@ -1,24 +1,29 @@
 import _ from 'lodash'
 import React from 'react'
 import {connect} from 'react-redux'
-import {login} from 'fl-auth-redux'
+import {register} from 'fl-auth-redux'
 
 import {loadActiveProfile} from '../actions'
 import LoginForm from '../components/LoginForm'
 import router from '../../routing'
 
-class LoginContainer extends React.Component {
+class RegisterContainer extends React.Component {
   static propTypes = {
     auth: React.PropTypes.object,
     config: React.PropTypes.object.isRequired,
     nav: React.PropTypes.object.isRequired,
-    login: React.PropTypes.func.isRequired,
+    register: React.PropTypes.func.isRequired,
     loadActiveProfile: React.PropTypes.func.isRequired,
   }
 
-  handleLogin = data => {
-    console.log('dispatching login', data)
-    this.props.login(`${this.props.config.get('url')}/login`, data.email, data.password, err => {
+  constructor() {
+    super()
+    this.state = {}
+  }
+
+  handleRegister = data => {
+    this.setState({loading: true})
+    this.props.register(`${this.props.config.get('url')}/register`, data, err => {
       this.setState({loading: false})
       if (err) return console.log(err)
       const userId = this.props.auth.get('user').get('id')
@@ -33,18 +38,19 @@ class LoginContainer extends React.Component {
 
   render() {
     const {auth} = this.props
-    const errorMsg = auth.get('errors').get('login')
+    const errorMsg = auth.get('errors').get('register')
     // if (errorMsg && process.env.NODE_ENV === 'production') errorMsg = 'Bummer. Something went wrong'
 
     return (
       <LoginForm
-        onSubmit={this.handleLogin}
-        onFacebookLogin={this.handleFacebookLogin}
+        registerMode
+        onSubmit={this.handleRegister}
         errorMsg={errorMsg}
+        loading={this.state.loading}
         {...this.props}
       />
     )
   }
 }
 
-export default connect(state => _.pick(state, 'auth', 'config'), {login, loadActiveProfile})(LoginContainer)
+export default connect(state => _.pick(state, 'auth', 'config'), {register, loadActiveProfile})(RegisterContainer)

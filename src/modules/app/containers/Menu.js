@@ -1,7 +1,13 @@
+import _ from 'lodash' // eslint-disable-line
 import React from 'react'
+import {connect} from 'react-redux'
 import Menu from '../components/Menu'
 
-export default class MenuContainer extends React.Component {
+class MenuContainer extends React.Component {
+
+  static propTypes = {
+    auth: React.PropTypes.object.isRequired,
+  }
 
   render() {
     return (
@@ -11,6 +17,4 @@ export default class MenuContainer extends React.Component {
 
 }
 
-MenuContainer.propTypes = {
-  nav: React.PropTypes.object,
-}
+export default connect(state => _.pick(state, 'auth'))(MenuContainer)

@@ -4,7 +4,11 @@ import {connect} from 'react-redux'
 import Notifications from '../components/Notifications'
 import {dismissAll} from '../notificationActions'
 
-export default class NotificationsContainer extends React.Component {
+class NotificationsContainer extends React.Component {
+  static propTypes = {
+    notifications: React.PropTypes.object.isRequired,
+    dismissAll: React.PropTypes.func.isRequired,
+  }
 
   handleDismissAll = () => this.props.dismissAll();
 
@@ -15,11 +19,6 @@ export default class NotificationsContainer extends React.Component {
     )
   }
 
-}
-
-NotificationsContainer.propTypes = {
-  notifications: React.PropTypes.object.isRequired,
-  dismissAll: React.PropTypes.func.isRequired,
 }
 
 export default connect(state => ({notifications: state.notifications}), {dismissAll})(NotificationsContainer)

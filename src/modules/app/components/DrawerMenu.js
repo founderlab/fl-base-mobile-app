@@ -1,16 +1,8 @@
 import _ from 'lodash' // eslint-disable-line
 import React from 'react'
-import {
-  Text,
-  View,
-} from 'react-native'
+import {View} from 'react-native'
 
-import Link from '../../ui/components/Link'
-
-import styles from '../styles'
-import button_styles from '../../ui/styles/button'
-import layout_styles from '../../ui/styles/layout'
-import typography_styles from '../../ui/styles/typography'
+import LinkButton from '../../ui/components/LinkButton'
 
 export default class DrawerMenu extends React.Component {
   render() {
@@ -21,33 +13,29 @@ export default class DrawerMenu extends React.Component {
     if (!logged_in) {
       links = (
         <View>
-          <Link key="login" style={button_styles.button} nav={nav} to="login">
+          <LinkButton key="login" nav={nav} to="login">
             login
-          </Link>
-          <Link key="register" style={button_styles.button} nav={nav} to="register">
+          </LinkButton>
+          <LinkButton key="register" nav={nav} to="register">
             register
-          </Link>
+          </LinkButton>
         </View>
       )
     }
     else {
       links = (
         <View>
-          <Link style={button_styles.button} nav={nav} to="fire_conditions">
-            Fire conditions
-          </Link>
+          <LinkButton nav={nav} to="/menu">
+            Home
+          </LinkButton>
 
-          <Link style={button_styles.button} nav={nav} to="friends_and_family">
-            Friends and family
-          </Link>
-
-          <Link style={button_styles.button} nav={nav} to="live_updates">
-            Live updates
-          </Link>
-
-          <Link style={button_styles.button} nav={nav} to="settings">
+          <LinkButton nav={nav} to="/settings">
             Settings
-          </Link>
+          </LinkButton>
+
+          <LinkButton nav={nav} to="/logout">
+            Logout
+          </LinkButton>
         </View>
       )
     }
