@@ -16,15 +16,8 @@ class RegisterContainer extends React.Component {
     loadActiveProfile: React.PropTypes.func.isRequired,
   }
 
-  constructor() {
-    super()
-    this.state = {}
-  }
-
   handleRegister = data => {
-    this.setState({loading: true})
     this.props.register(`${this.props.config.get('url')}/register`, data, err => {
-      this.setState({loading: false})
       if (err) return console.log(err)
       const userId = this.props.auth.get('user').get('id')
 
@@ -39,13 +32,14 @@ class RegisterContainer extends React.Component {
   render() {
     const {auth} = this.props
     const errorMsg = auth.get('errors').get('register')
+    const loading = auth.get('loading')
 
     return (
       <LoginForm
         registerMode
         onSubmit={this.handleRegister}
         errorMsg={(errorMsg && !_.isString(errorMsg)) ? errorMsg.toString() : errorMsg}
-        loading={this.state.loading}
+        loading={loading}
         {...this.props}
       />
     )

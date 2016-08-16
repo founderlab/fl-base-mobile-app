@@ -18,7 +18,6 @@ class LoginContainer extends React.Component {
 
   handleLogin = data => {
     this.props.login(`${this.props.config.get('url')}/login`, data.email, data.password, err => {
-      this.setState({loading: false})
       if (err) return console.log(err)
       const userId = this.props.auth.get('user').get('id')
 
@@ -33,12 +32,14 @@ class LoginContainer extends React.Component {
   render() {
     const {auth} = this.props
     const errorMsg = auth.get('errors').get('login')
+    const loading = auth.get('loading')
 
     return (
       <LoginForm
         onSubmit={this.handleLogin}
         onFacebookLogin={this.handleFacebookLogin}
         errorMsg={(errorMsg && !_.isString(errorMsg)) ? errorMsg.toString() : errorMsg}
+        loading={loading}
         {...this.props}
       />
     )
